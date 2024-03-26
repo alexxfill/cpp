@@ -1,3 +1,4 @@
+// реализация простой хеш-таблицы
 #include <iostream>
 #include <vector>
 #include <string>
