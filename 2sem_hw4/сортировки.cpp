@@ -5,13 +5,13 @@
 
 using namespace std;
 
-// Генерация случайных чисел в заданном диапазоне
+// Р“РµРЅРµСЂР°С†РёСЏ СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР» РІ Р·Р°РґР°РЅРЅРѕРј РґРёР°РїР°Р·РѕРЅРµ
 int randomInt(int a, int b)
 {
     return a + rand() % (b - a + 1);
 }
 
-// Функция для заполнения контейнера случайными числами
+// Р¤СѓРЅРєС†РёСЏ РґР»СЏ Р·Р°РїРѕР»РЅРµРЅРёСЏ РєРѕРЅС‚РµР№РЅРµСЂР° СЃР»СѓС‡Р°Р№РЅС‹РјРё С‡РёСЃР»Р°РјРё
 void fill_cont(vector<int>& container)
 {
     srand(time(0));
@@ -21,7 +21,7 @@ void fill_cont(vector<int>& container)
     }
 }
 
-// Сортировка пузырьком
+// РЎРѕСЂС‚РёСЂРѕРІРєР° РїСѓР·С‹СЂСЊРєРѕРј
 void bubbleSort(vector<int>& arr)
 {
     int n = arr.size();
@@ -37,7 +37,7 @@ void bubbleSort(vector<int>& arr)
     }
 }
 
-// Быстрая сортировка
+// Р‘С‹СЃС‚СЂР°СЏ СЃРѕСЂС‚РёСЂРѕРІРєР°
 void quickSort(vector<int>& arr, int low, int high)
 {
     if (low < high)
@@ -66,19 +66,19 @@ int main() {
 
     B = A;
 
-    // Измеряем время выполнения сортировки пузырьком
+    // РР·РјРµСЂСЏРµРј РІСЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ СЃРѕСЂС‚РёСЂРѕРІРєРё РїСѓР·С‹СЂСЊРєРѕРј
     clock_t start_time = clock();
     bubbleSort(A);
     clock_t end_time = clock();
     double time_bubbleSort = double(end_time - start_time) / CLOCKS_PER_SEC;
 
-    // Измеряем время выполнения быстрой сортировки
+    // РР·РјРµСЂСЏРµРј РІСЂРµРјСЏ РІС‹РїРѕР»РЅРµРЅРёСЏ Р±С‹СЃС‚СЂРѕР№ СЃРѕСЂС‚РёСЂРѕРІРєРё
     start_time = clock();
     quickSort(B, 0, B.size() - 1);
     end_time = clock();
     double time_quickSort = double(end_time - start_time) / CLOCKS_PER_SEC;
 
-    // Результаты
+    // Р РµР·СѓР»СЊС‚Р°С‚С‹
     cout << "Bubble sort time: " << time_bubbleSort << " seconds" << endl;
     cout << "Quick sort time: " << time_quickSort << " seconds" << endl;
 
