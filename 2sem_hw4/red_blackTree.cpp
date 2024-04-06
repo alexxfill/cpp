@@ -7,12 +7,12 @@
 using namespace std;
 using namespace chrono;
 
-// Структура для красно-черного дерева
+// РЎС‚СЂСѓРєС‚СѓСЂР° РґР»СЏ РєСЂР°СЃРЅРѕ-С‡РµСЂРЅРѕРіРѕ РґРµСЂРµРІР°
 struct Node
 {
     int data;
-    Node* left; // левый потомок
-    Node* right; // правый потомок
+    Node* left; // Р»РµРІС‹Р№ РїРѕС‚РѕРјРѕРє
+    Node* right; // РїСЂР°РІС‹Р№ РїРѕС‚РѕРјРѕРє
     Node* parent;
     bool isRed;
 
@@ -24,7 +24,7 @@ class RedBlackTree {
 public:
     RedBlackTree() : root(nullptr) {}
 
-    // Метод для добавления элемента в дерево
+    // РњРµС‚РѕРґ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ СЌР»РµРјРµРЅС‚Р° РІ РґРµСЂРµРІРѕ
     void insert(int value)
     {
         Node* newNode = new Node(value);
@@ -61,7 +61,7 @@ public:
         fixInsertion(newNode);
     }
 
-    // Метод для поиска элемента в дереве
+    // РњРµС‚РѕРґ РґР»СЏ РїРѕРёСЃРєР° СЌР»РµРјРµРЅС‚Р° РІ РґРµСЂРµРІРµ
     bool find(int value)
     {
         Node* current = root;
@@ -86,16 +86,16 @@ public:
 private:
     Node* root;
 
-    // Метод для балансировки после вставки элемента
+    // РњРµС‚РѕРґ РґР»СЏ Р±Р°Р»Р°РЅСЃРёСЂРѕРІРєРё РїРѕСЃР»Рµ РІСЃС‚Р°РІРєРё СЌР»РµРјРµРЅС‚Р°
     void fixInsertion(Node* h)
     {
-        // Пока родитель элемента красный
+        // РџРѕРєР° СЂРѕРґРёС‚РµР»СЊ СЌР»РµРјРµРЅС‚Р° РєСЂР°СЃРЅС‹Р№
         while (h != root && h->parent->isRed)
         {
-            // Родитель элемента - левый
+            // Р РѕРґРёС‚РµР»СЊ СЌР»РµРјРµРЅС‚Р° - Р»РµРІС‹Р№
             if (h->parent == h->parent->parent->left)
             {
-                // Дядя - правый (брат родителя)
+                // Р”СЏРґСЏ - РїСЂР°РІС‹Р№ (Р±СЂР°С‚ СЂРѕРґРёС‚РµР»СЏ)
                 Node* uncle = h->parent->parent->right;
                 if (uncle && uncle->isRed)
                 {
@@ -107,7 +107,7 @@ private:
 
                 else
                 {
-                    // Элемент - правый
+                    // Р­Р»РµРјРµРЅС‚ - РїСЂР°РІС‹Р№
                     if (h == h->parent->right)
                     {
                         h = h->parent;
@@ -121,7 +121,7 @@ private:
 
             else
             {
-                // Дядя - левый (брат родителя)
+                // Р”СЏРґСЏ - Р»РµРІС‹Р№ (Р±СЂР°С‚ СЂРѕРґРёС‚РµР»СЏ)
                 Node* uncle = h->parent->parent->left;
                 if (uncle && uncle->isRed)
                 {
@@ -131,7 +131,7 @@ private:
                     h = h->parent->parent;
                 }
 
-                // Элемент - левый
+                // Р­Р»РµРјРµРЅС‚ - Р»РµРІС‹Р№
                 else
                 {
                     if (h == h->parent->left)
@@ -145,35 +145,35 @@ private:
                 }
             }
         }
-        root->isRed = false; // Корень дерева всегда черный
+        root->isRed = false; // РљРѕСЂРµРЅСЊ РґРµСЂРµРІР° РІСЃРµРіРґР° С‡РµСЂРЅС‹Р№
     }
 
-    // Метод для ротации влево (для LR и RL)
+    // РњРµС‚РѕРґ РґР»СЏ СЂРѕС‚Р°С†РёРё РІР»РµРІРѕ (РґР»СЏ LR Рё RL)
     void rotateLeft(Node* h)
     {
         Node* rightChild = h->right;
         h->right = rightChild->left;
 
-        // Если правый потомок элемента обладает левым потомком
+        // Р•СЃР»Рё РїСЂР°РІС‹Р№ РїРѕС‚РѕРјРѕРє СЌР»РµРјРµРЅС‚Р° РѕР±Р»Р°РґР°РµС‚ Р»РµРІС‹Рј РїРѕС‚РѕРјРєРѕРј
         if (rightChild->left)
         {
             rightChild->left->parent = h;
         }
         rightChild->parent = h->parent;
 
-        // Если элемент - корень
+        // Р•СЃР»Рё СЌР»РµРјРµРЅС‚ - РєРѕСЂРµРЅСЊ
         if (h->parent == nullptr)
         {
             root = rightChild;
         }
 
-        // Если элемент - левый
+        // Р•СЃР»Рё СЌР»РµРјРµРЅС‚ - Р»РµРІС‹Р№
         else if (h == h->parent->left)
         {
             h->parent->left = rightChild;
         }
 
-        else // Если элемент - правый
+        else // Р•СЃР»Рё СЌР»РµРјРµРЅС‚ - РїСЂР°РІС‹Р№
         {
             h->parent->right = rightChild;
         }
@@ -181,32 +181,32 @@ private:
         h->parent = rightChild;
     }
 
-    // Метод для ротации вправо (для LL и RR)
+    // РњРµС‚РѕРґ РґР»СЏ СЂРѕС‚Р°С†РёРё РІРїСЂР°РІРѕ (РґР»СЏ LL Рё RR)
     void rotateRight(Node* h)
     {
         Node* leftChild = h->left;
         h->left = leftChild->right;
 
-        // Если левый потомок элемента обладает правым потомком
+        // Р•СЃР»Рё Р»РµРІС‹Р№ РїРѕС‚РѕРјРѕРє СЌР»РµРјРµРЅС‚Р° РѕР±Р»Р°РґР°РµС‚ РїСЂР°РІС‹Рј РїРѕС‚РѕРјРєРѕРј
         if (leftChild->right)
         {
             leftChild->right->parent = h;
         }
         leftChild->parent = h->parent;
 
-        // Если элемент - корень
+        // Р•СЃР»Рё СЌР»РµРјРµРЅС‚ - РєРѕСЂРµРЅСЊ
         if (h->parent == nullptr)
         {
             root = leftChild;
         }
 
-        // Если элемент - правый
+        // Р•СЃР»Рё СЌР»РµРјРµРЅС‚ - РїСЂР°РІС‹Р№
         else if (h == h->parent->right)
         {
             h->parent->right = leftChild;
         }
 
-        // Если элемент - левый
+        // Р•СЃР»Рё СЌР»РµРјРµРЅС‚ - Р»РµРІС‹Р№
         else
         {
             h->parent->left = leftChild;
@@ -217,7 +217,7 @@ private:
 };
 
 int main() {
-    // Создание и заполнение контейнеров
+    // РЎРѕР·РґР°РЅРёРµ Рё Р·Р°РїРѕР»РЅРµРЅРёРµ РєРѕРЅС‚РµР№РЅРµСЂРѕРІ
     RedBlackTree rbTree;
     vector<int> vec;
     srand(time(0));
@@ -229,7 +229,7 @@ int main() {
     }
 
 
-    // Сравнение времени поиска элемента
+    // РЎСЂР°РІРЅРµРЅРёРµ РІСЂРµРјРµРЅРё РїРѕРёСЃРєР° СЌР»РµРјРµРЅС‚Р°
     auto start_t = steady_clock::now();
     for (int i = 0; i < 10000; i++)
     {
@@ -250,7 +250,7 @@ int main() {
     cout << "Vector search time: " << vecSearch_time.count() << " microseconds" << endl;
 
 
-    // Сравнение времени добавления нового элемента
+    // РЎСЂР°РІРЅРµРЅРёРµ РІСЂРµРјРµРЅРё РґРѕР±Р°РІР»РµРЅРёСЏ РЅРѕРІРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
     start_t = steady_clock::now();
     for (int i = 0; i < 10000; i++)
     {
